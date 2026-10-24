@@ -1,0 +1,66 @@
+---
+import type { Project } from '../content/projects';
+
+const { project, index } = Astro.props as { project: Project; index: number };
+---
+
+<article class:list={['project', `project-${project.slug}`]}>
+  <header class="project-heading">
+    <p class="project-number" aria-hidden="true"><span>[</span>{String(index + 1).padStart(2, '0')}<span>]</span></p>
+    <div class="project-title-block">
+      <p class="project-index">PROJECT STUDY / {project.technologies[0]}</p>
+      <h3>{project.title}</h3>
+      <p class="project-summary">{project.summary}</p>
+    </div>
+  </header>
+
+  {project.slug === 'mem' ? (
+    <figure class="project-visual project-visual-mem">
+      <div class="terminal-top"><span>mem / sample search</span><span>GO · SQLITE FTS5</span></div>
+      <pre><code><span class="terminal-prompt">$</span> mem search "the PDF about Linux process scheduling"
+
+<span class="terminal-hit">[99%] l.pdf</span>
+       Matches: linux, process
+       ... Linux exposes this <span class="terminal-mark">&gt;&gt; process &lt;&lt;</span> behind splash screens ...</code></pre>
+      <figcaption>Search output · example documented in the project README</figcaption>
+    </figure>
+  ) : project.slug === 'bluetui' ? (
+    <figure class="project-visual project-visual-bluetui">
+      <p class="visual-label">SIMPLIFIED CONTROL PATH</p>
+      <div class="system-flow" role="group" aria-label="ratatui terminal interface to application event loop, bluer, system D-Bus, and bluetoothd">
+        <div><span>01 / INTERFACE</span><strong>ratatui</strong></div>
+        <b aria-hidden="true">→</b>
+        <div><span>02 / APP</span><strong>event loop</strong></div>
+        <b aria-hidden="true">→</b>
+        <div><span>03 / BLUETOOTH</span><strong>bluer · D-Bus</strong></div>
+        <b aria-hidden="true">→</b>
+        <div><span>04 / LINUX</span><strong>bluetoothd</strong></div>
+      </div>
+      <figcaption>Terminal UI to the Linux Bluetooth service · simplified from project documentation</figcaption>
+    </figure>
+  ) : null}
+
+  <div class="project-details">
+    <div class="project-description-block">
+      <p class="detail-label">OVERVIEW</p>
+      <p>{project.description}</p>
+      <p class="implementation-note"><span>ENGINEERING NOTE</span>{project.implementationNote}</p>
+    </div>
+    <div class="project-meta">
+      <div class="project-tech">
+        <p class="detail-label">TECHNOLOGIES</p>
+        <ul class="tags">{project.technologies.map((technology) => <li>{technology}</li>)}</ul>
+      </div>
+      {project.repositoryUrl && (
+        <a class="project-link" href={project.repositoryUrl} target="_blank" rel="noreferrer">
+          View repository <span aria-hidden="true">↗</span>
+        </a>
+      )}
+      {project.demoUrl && (
+        <a class="project-link" href={project.demoUrl} target="_blank" rel="noreferrer">
+          Open live demo <span aria-hidden="true">↗</span>
+        </a>
+      )}
+    </div>
+  </div>
+</article>
