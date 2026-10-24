@@ -7,6 +7,7 @@ export type Project = {
   technologies: string[];
   repositoryUrl?: string;
   demoUrl?: string;
+  devpostUrl?: string;
 };
 
 // Project details come from the local READMEs and source repositories. Add
@@ -22,6 +23,7 @@ export const projects: Project[] = [
       'The bundled index covers 1,198 India-scoped titles. Semantic search returned results in 31–33 ms on the Vega Virtual Device.',
     technologies: ['React Native for Vega', 'TypeScript', 'TMDB API', 'Vector search'],
     repositoryUrl: 'https://github.com/Kaiser879/YourNextBinge',
+    devpostUrl: 'https://devpost.com/software/your-next-binge',
   },
   {
     title: 'mem',
@@ -32,15 +34,17 @@ export const projects: Project[] = [
     implementationNote:
       'Search explains how it parsed a query and reports an honest miss instead of filling the results with unrelated files.',
     technologies: ['Go', 'SQLite FTS5', 'Bubble Tea', 'OCR'],
+    repositoryUrl: 'https://github.com/Kaiser879/MeM',
   },
   {
-    title: 'bluetui',
-    slug: 'bluetui',
+    title: 'AirBlued',
+    slug: 'airblued',
     summary: 'Manage Bluetooth devices from a terminal, without shelling out to bluetoothctl.',
     description:
       'A Rust terminal interface for Linux Bluetooth. It connects to bluetoothd over system D-Bus, supports live device discovery, and provides device actions such as connect, trust, rename, and remove.',
     implementationNote:
       'Background Bluetooth tasks report events to the application loop over a channel, keeping device work out of the terminal rendering path.',
     technologies: ['Rust', 'ratatui', 'bluer', 'D-Bus'],
+    repositoryUrl: 'https://github.com/Kaiser879/AirBlued',
   },
 ];

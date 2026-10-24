@@ -8,7 +8,7 @@ const { project, index } = Astro.props as { project: Project; index: number };
   <header class="project-heading">
     <p class="project-number" aria-hidden="true"><span>[</span>{String(index + 1).padStart(2, '0')}<span>]</span></p>
     <div class="project-title-block">
-      <p class="project-index">PROJECT STUDY / {project.technologies[0]}</p>
+      <p class="project-index">SOLO PROJECT / {project.technologies[0]}</p>
       <h3>{project.title}</h3>
       <p class="project-summary">{project.summary}</p>
     </div>
@@ -24,8 +24,8 @@ const { project, index } = Astro.props as { project: Project; index: number };
        ... Linux exposes this <span class="terminal-mark">&gt;&gt; process &lt;&lt;</span> behind splash screens ...</code></pre>
       <figcaption>Search output · example documented in the project README</figcaption>
     </figure>
-  ) : project.slug === 'bluetui' ? (
-    <figure class="project-visual project-visual-bluetui">
+  ) : project.slug === 'airblued' ? (
+    <figure class="project-visual project-visual-airblued">
       <p class="visual-label">SIMPLIFIED CONTROL PATH</p>
       <div class="system-flow" role="group" aria-label="ratatui terminal interface to application event loop, bluer, system D-Bus, and bluetoothd">
         <div><span>01 / INTERFACE</span><strong>ratatui</strong></div>
@@ -59,6 +59,11 @@ const { project, index } = Astro.props as { project: Project; index: number };
       {project.demoUrl && (
         <a class="project-link" href={project.demoUrl} target="_blank" rel="noreferrer">
           Open live demo <span aria-hidden="true">↗</span>
+        </a>
+      )}
+      {project.devpostUrl && (
+        <a class="project-link" href={project.devpostUrl} target="_blank" rel="noreferrer">
+          View on Devpost <span aria-hidden="true">↗</span>
         </a>
       )}
     </div>

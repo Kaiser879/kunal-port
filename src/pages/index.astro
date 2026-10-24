@@ -3,10 +3,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import ProjectShowcase from '../components/ProjectShowcase.astro';
 import { projects } from '../content/projects';
-import { competitionWins } from '../content/achievements';
+import { achievements } from '../content/achievements';
 ---
 
-<BaseLayout title="Kunal — Software Developer" description="Independent software projects in local search, Linux systems, and TV discovery.">
+<BaseLayout title="Kunal Wagh — Software Developer" description="Kunal Wagh is a first-year CSE (AI & ML) student at MIT Mumbai building software across local search, Linux systems, and TV discovery.">
   <div class="folio-page">
     <SiteHeader />
     <main id="top">
@@ -17,7 +17,7 @@ import { competitionWins } from '../content/achievements';
         </div>
         <h1 id="intro-title">PORTFOLIO<span>.</span></h1>
         <div class="intro-base">
-          <p class="intro-name">Kunal<span>Independent developer</span></p>
+          <p class="intro-name">Kunal Wagh<span>First-year CSE (AI & ML)</span><span>MIT Mumbai · Mumbai</span></p>
           <div>
             <p class="intro-deck">I build useful software across local search, Linux systems, and TV discovery.</p>
             <a class="intro-link" href="#work">Explore selected work <span aria-hidden="true">↓</span></a>
@@ -29,7 +29,7 @@ import { competitionWins } from '../content/achievements';
         <header class="section-heading">
           <p class="eyebrow"><span>01</span> PROJECTS</p>
           <h2 id="work-title">Selected work</h2>
-          <p>Three independent projects, each built around a practical problem.</p>
+          <p>Three solo projects, each built around a practical problem.</p>
         </header>
         <div class="projects">
           {projects.map((project, index) => <ProjectShowcase project={project} index={index} />)}
@@ -39,10 +39,15 @@ import { competitionWins } from '../content/achievements';
       <section id="achievements" class="recognition-section page-inner" aria-labelledby="recognition-title">
         <p class="eyebrow"><span>02</span> RECOGNITION</p>
         <div class="recognition-row">
-          <p class="recognition-count">{String(competitionWins).padStart(2, '0')}</p>
+          <p class="recognition-count">{String(achievements.length).padStart(2, '0')}</p>
           <div>
-            <h2 id="recognition-title">Competition wins</h2>
-            <p>Three competition wins.</p>
+            <h2 id="recognition-title">{achievements.length === 1 ? 'Competition win' : 'Competition wins'}</h2>
+            {achievements.map((achievement) => (
+              <div class="achievement-detail">
+                <p><strong>{achievement.result} · {achievement.competition}</strong></p>
+                <p>{achievement.organizer} · Built <a href={achievement.projectUrl} target="_blank" rel="noreferrer">{achievement.project}</a></p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -53,17 +58,21 @@ import { competitionWins } from '../content/achievements';
           <h2 id="interests-title">What I’m exploring</h2>
         </header>
         <ul class="interest-list">
-          <li><span>01</span><strong>Linux and systems software</strong><p>How software behaves beneath the interface.</p></li>
+          <li><span>01</span><strong>DevOps and Linux systems</strong><p>How software behaves beneath the interface and the systems that run it.</p></li>
           <li><span>02</span><strong>Local-first search</strong><p>Indexing, ranking, and making results explain themselves.</p></li>
-          <li><span>03</span><strong>Useful interfaces</strong><p>Clear interactions built around real constraints.</p></li>
+          <li><span>03</span><strong>AI</strong><p>Exploring practical ways to make software more useful.</p></li>
         </ul>
       </section>
 
       <section id="about" class="about-section page-inner" aria-labelledby="about-title">
         <p class="eyebrow"><span>04</span> ABOUT</p>
+        <figure class="about-photo">
+          <img src="/images/elliot-miku.png" width="512" height="512" alt="Kunal with a Hatsune Miku figure" loading="lazy" />
+          <figcaption>ELLIOT &amp; MIKU</figcaption>
+        </figure>
         <div class="about-copy">
           <h2 id="about-title">I like making tricky things feel manageable.</h2>
-          <p>I’m Kunal, an early-career developer. My projects range from finding a document by its contents to managing Bluetooth devices on Linux and discovering what’s available to watch in India.</p>
+          <p>I’m a first-year CSE (AI & ML) student at MIT Mumbai. I build software around practical problems: finding a document by its contents, managing Bluetooth devices on Linux, and discovering what’s available to watch in India.</p>
           <p>I care about the decisions behind the feature list: clear boundaries, useful fallbacks, and software that behaves predictably.</p>
         </div>
       </section>
@@ -72,16 +81,21 @@ import { competitionWins } from '../content/achievements';
         <p class="eyebrow"><span>05</span> CONTACT</p>
         <div class="contact-row">
           <h2 id="contact-title">Let’s talk about software.</h2>
-          <a class="contact-link" href="https://github.com/Kaiser879" target="_blank" rel="noreferrer">
-            Find me on GitHub <span aria-hidden="true">↗</span>
-          </a>
+          <div class="contact-links">
+            <a class="contact-link" href="mailto:kunalwagh916@gmail.com">
+              kunalwagh916@gmail.com <span aria-hidden="true">↗</span>
+            </a>
+            <a class="contact-link" href="https://github.com/Kaiser879" target="_blank" rel="noreferrer">
+              GitHub profile <span aria-hidden="true">↗</span>
+            </a>
+          </div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer page-inner">
-      <a class="wordmark" href="#top">Kunal<span>.</span></a>
-      <span>© {new Date().getFullYear()} Kunal</span>
+      <a class="wordmark" href="#top">Kunal Wagh<span>.</span></a>
+      <span>© {new Date().getFullYear()} Kunal Wagh</span>
       <a href="#top">Back to top ↑</a>
     </footer>
   </div>

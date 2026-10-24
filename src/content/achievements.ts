@@ -1,3 +1,19 @@
-// The portfolio brief confirms three competition wins. Individual event names,
-// placements, and evidence links were not included in the local source material.
-export const competitionWins = 3;
+export type Achievement = {
+  competition: string;
+  organizer: string;
+  result: string;
+  project: string;
+  projectUrl: string;
+  date?: string;
+};
+
+// Details supplied by Kunal. No year or exact placement was provided.
+export const achievements: Achievement[] = [
+  {
+    competition: 'BuildX',
+    organizer: 'MIT Kernel · Tech Club',
+    result: 'Winner',
+    project: 'MeM',
+    projectUrl: 'https://github.com/Kaiser879/MeM',
+  },
+];
