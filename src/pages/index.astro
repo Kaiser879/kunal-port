@@ -31,6 +31,19 @@ import { achievements } from '../content/achievements';
           <h2 id="work-title">Selected work</h2>
           <p>Three solo projects, each built around a practical problem.</p>
         </header>
+        <div
+          class="project-progress"
+          role="progressbar"
+          aria-label="Project sequence"
+          aria-valuemin="1"
+          aria-valuemax={projects.length}
+          aria-valuenow="1"
+          aria-valuetext={`Project 1 of ${projects.length}`}
+        >
+          <span class="project-progress-current">01</span>
+          <span class="project-progress-track" aria-hidden="true"><span class="project-progress-fill" style={`--progress-start: ${1 / projects.length}`}></span></span>
+          <span class="project-progress-total">{String(projects.length).padStart(2, '0')}</span>
+        </div>
         <div class="projects">
           {projects.map((project, index) => <ProjectShowcase project={project} index={index} />)}
         </div>
@@ -100,3 +113,7 @@ import { achievements } from '../content/achievements';
     </footer>
   </div>
 </BaseLayout>
+
+<script>
+  import '../scripts/motion';
+</script>
