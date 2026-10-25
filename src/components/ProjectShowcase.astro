@@ -2,6 +2,7 @@
 import type { Project } from '../content/projects';
 
 const { project, index } = Astro.props as { project: Project; index: number };
+const hasVisual = ['your-next-binge', 'mem', 'airblued'].includes(project.slug);
 ---
 
 <article class:list={['project', `project-${project.slug}`]}>
@@ -14,7 +15,24 @@ const { project, index } = Astro.props as { project: Project; index: number };
     </div>
   </header>
 
-  {project.slug === 'mem' ? (
+  {project.slug === 'your-next-binge' ? (
+    <figure class="project-visual project-visual-binge" aria-label="Portfolio preview for Your Next Binge">
+      <div class="terminal-top"><span>Your Next Binge / discovery</span><span>INDIA · LIVE AVAILABILITY</span></div>
+      <div class="binge-preview-body">
+        <p class="binge-preview-kicker">TONIGHT?</p>
+        <h4>IN <span>INDIA.</span></h4>
+        <p>Find something you can actually watch.</p>
+        <div class="binge-preview-stats">
+          <div><strong>1,198</strong><span>India-scoped titles</span></div>
+          <div><strong>31–33 ms</strong><span>semantic search on VVD</span></div>
+        </div>
+        <div class="binge-preview-offers">
+          <span>STREAM</span><span>RENT</span><span>BUY</span>
+        </div>
+      </div>
+      <figcaption>Portfolio visual based on documented project facts.</figcaption>
+    </figure>
+  ) : project.slug === 'mem' ? (
     <figure class="project-visual project-visual-mem">
       <div class="terminal-top"><span>mem / sample search</span><span>GO · SQLITE FTS5</span></div>
       <pre><code><span class="terminal-prompt">$</span> mem search "the PDF about Linux process scheduling"
@@ -40,6 +58,12 @@ const { project, index } = Astro.props as { project: Project; index: number };
     </figure>
   ) : null}
 
+  {hasVisual && (
+    <button class="project-preview-trigger" type="button" data-preview-open aria-label={`Expand ${project.title} preview`}>
+      Expand project preview <span aria-hidden="true">↗</span>
+    </button>
+  )}
+
   <div class="project-details">
     <div class="project-description-block">
       <p class="detail-label">OVERVIEW</p>
@@ -51,6 +75,9 @@ const { project, index } = Astro.props as { project: Project; index: number };
         <p class="detail-label">TECHNOLOGIES</p>
         <ul class="tags">{project.technologies.map((technology) => <li>{technology}</li>)}</ul>
       </div>
+      <a class="project-link case-study-link" href={`/work/${project.slug}/`}>
+        Read case study <span aria-hidden="true">↗</span>
+      </a>
       {project.repositoryUrl && (
         <a class="project-link" href={project.repositoryUrl} target="_blank" rel="noreferrer">
           View repository <span aria-hidden="true">↗</span>

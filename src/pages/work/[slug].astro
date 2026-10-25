@@ -1,0 +1,156 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import { projects, type Project } from '../../content/projects';
+import { caseStudies, type CaseStudy } from '../../content/caseStudies';
+
+export function getStaticPaths() {
+  return projects.map((project, index) => {
+    const study = caseStudies[project.slug];
+    if (!study) throw new Error(`Missing case study content for ${project.slug}`);
+
+    return {
+      params: { slug: project.slug },
+      props: {
+        project,
+        study,
+        index,
+        previous: projects[(index + projects.length - 1) % projects.length],
+        next: projects[(index + 1) % projects.length],
+      },
+    };
+  });
+}
+
+type Props = { project: Project; study: CaseStudy; index: number; previous: Project; next: Project };
+const { project, study, index, previous, next } = Astro.props as Props;
+const sequence = `${String(index + 1).padStart(2, '0')} / ${String(projects.length).padStart(2, '0')}`;
+const toId = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+---
+
+<BaseLayout
+  title={`${project.title} — Case Study | Kunal Wagh`}
+  description={`${project.summary} A project case study by Kunal Wagh.`}
+>
+  <div class="folio-page">
+    <SiteHeader />
+    <main id="top" class="case-study page-inner">
+      <nav class="case-breadcrumb" aria-label="Breadcrumb">
+        <a href="/#work"><span aria-hidden="true">←</span> Selected work</a>
+        <span aria-current="page">{project.title}</span>
+      </nav>
+
+      <header class="case-hero">
+        <div class="case-hero-topline">
+          <p class="eyebrow"><span>PROJECT CASE STUDY</span></p>
+          <p>{sequence}</p>
+        </div>
+        <h1>{project.title}<span>.</span></h1>
+        <p class="case-summary">{project.summary}</p>
+        <div class="case-actions">
+          {project.repositoryUrl && (
+            <a class="case-action-primary" href={project.repositoryUrl} target="_blank" rel="noreferrer">
+              View repository <span aria-hidden="true">↗</span>
+            </a>
+          )}
+          {project.demoUrl && (
+            <a class="case-action-secondary" href={project.demoUrl} target="_blank" rel="noreferrer">
+              Open live demo <span aria-hidden="true">↗</span>
+            </a>
+          )}
+          {project.devpostUrl && (
+            <a class="case-action-secondary" href={project.devpostUrl} target="_blank" rel="noreferrer">
+              View on Devpost <span aria-hidden="true">↗</span>
+            </a>
+          )}
+        </div>
+        <div class="case-stack">
+          <p class="detail-label">BUILT WITH</p>
+          <ul class="tags">{project.technologies.map((technology) => <li>{technology}</li>)}</ul>
+        </div>
+      </header>
+
+      <figure class="case-flow" aria-label={`Simplified system flow for ${project.title}`}>
+        <p class="detail-label">SYSTEM OVERVIEW</p>
+        <div class="case-flow-row">
+          {study.flow.map((step, stepIndex) => (
+            <>
+              <div class="case-flow-step">
+                <span>{step.label}</span>
+                <strong>{step.value}</strong>
+              </div>
+              {stepIndex < study.flow.length - 1 && <span class="case-flow-arrow" aria-hidden="true">→</span>}
+            </>
+          ))}
+        </div>
+        <figcaption>Simplified from the project’s documented architecture and behavior.</figcaption>
+      </figure>
+
+      <section class="case-challenge" aria-labelledby="case-challenge-title">
+        <p class="eyebrow"><span>THE CHALLENGE</span></p>
+        <div>
+          <h2 id="case-challenge-title">{study.challenge.title}</h2>
+          {study.challenge.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+      </section>
+
+      {study.sections.map((section) => {
+        const sectionId = `section-${toId(section.label)}`;
+        return (
+          <section class="case-study-section" aria-labelledby={sectionId}>
+            <header>
+              <p class="eyebrow"><span>{section.label}</span></p>
+              <h2 id={sectionId}>{section.title}</h2>
+            </header>
+            <div class="case-study-copy">
+              {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+              {section.points && (
+                <ul>
+                  {section.points.map((point) => <li>{point}</li>)}
+                </ul>
+              )}
+            </div>
+          </section>
+        );
+      })}
+
+      <section class="case-results" aria-labelledby="case-results-title">
+        <p class="eyebrow"><span>OUTCOMES</span></p>
+        <h2 id="case-results-title">What the build demonstrates</h2>
+        <div class="case-outcome-grid">
+          {study.outcomes.map((outcome) => (
+            <div class="case-outcome">
+              <strong>{outcome.value}</strong>
+              <p>{outcome.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="case-validation" aria-labelledby="case-validation-title">
+        <p class="eyebrow"><span>VALIDATION &amp; SCOPE</span></p>
+        <div>
+          <h2 id="case-validation-title">What’s verified, and what remains.</h2>
+          <ul>{study.validation.map((item) => <li>{item}</li>)}</ul>
+        </div>
+      </section>
+
+      <nav class="case-pagination" aria-label="Other case studies">
+        <a class="case-pagination-link" href={`/work/${previous.slug}/`}>
+          <span>PREVIOUS PROJECT</span>
+          <strong><span aria-hidden="true">←</span> {previous.title}</strong>
+        </a>
+        <a class="case-pagination-link case-pagination-next" href={`/work/${next.slug}/`}>
+          <span>NEXT PROJECT</span>
+          <strong>{next.title} <span aria-hidden="true">→</span></strong>
+        </a>
+      </nav>
+    </main>
+
+    <footer class="site-footer page-inner">
+      <a class="wordmark" href="/#top">Kunal Wagh<span>.</span></a>
+      <span>© {new Date().getFullYear()} Kunal Wagh</span>
+      <a href="/#work">All projects ↑</a>
+    </footer>
+  </div>
+</BaseLayout>

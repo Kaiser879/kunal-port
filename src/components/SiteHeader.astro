@@ -1,10 +1,14 @@
+---
+const { home = false } = Astro.props as { home?: boolean };
+const sectionHref = (section: string) => home ? `#${section}` : `/#${section}`;
+---
 <header class="site-header page-inner">
-  <a class="wordmark" href="#top" aria-label="Kunal Wagh, back to top">Kunal Wagh<span>.</span></a>
+  <a class="wordmark" href={home ? '#top' : '/#top'} aria-label="Kunal Wagh, back to top">Kunal Wagh<span>.</span></a>
   <nav aria-label="Main navigation">
-    <a href="#work">Work</a>
-    <a href="#achievements">Wins</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
+    <a href={sectionHref('work')}>Work</a>
+    <a href={sectionHref('achievements')}>Wins</a>
+    <a href={sectionHref('about')}>About</a>
+    <a href={sectionHref('contact')}>Contact</a>
     <a href="https://github.com/Kaiser879" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
   </nav>
 </header>

@@ -8,7 +8,7 @@ import { achievements } from '../content/achievements';
 
 <BaseLayout title="Kunal Wagh — Software Developer" description="Kunal Wagh is a first-year CSE (AI & ML) student at MIT Mumbai building software across local search, Linux systems, and TV discovery.">
   <div class="folio-page">
-    <SiteHeader />
+    <SiteHeader home />
     <main id="top">
       <section class="intro page-inner" aria-labelledby="intro-title">
         <div class="intro-topline">
@@ -95,9 +95,15 @@ import { achievements } from '../content/achievements';
         <div class="contact-row">
           <h2 id="contact-title">Let’s talk about software.</h2>
           <div class="contact-links">
-            <a class="contact-link" href="mailto:kunalwagh916@gmail.com">
-              kunalwagh916@gmail.com <span aria-hidden="true">↗</span>
-            </a>
+            <div class="email-actions">
+              <a class="contact-link" href="mailto:kunalwagh916@gmail.com">
+                kunalwagh916@gmail.com <span aria-hidden="true">↗</span>
+              </a>
+              <button class="copy-email" type="button" data-copy-email="kunalwagh916@gmail.com">
+                <span data-copy-label>Copy email</span><span aria-hidden="true">▢</span>
+              </button>
+              <span class="visually-hidden" data-copy-status role="status" aria-live="polite" aria-atomic="true"></span>
+            </div>
             <a class="contact-link" href="https://github.com/Kaiser879" target="_blank" rel="noreferrer">
               GitHub profile <span aria-hidden="true">↗</span>
             </a>
@@ -105,6 +111,19 @@ import { achievements } from '../content/achievements';
         </div>
       </section>
     </main>
+
+    <dialog class="preview-dialog" aria-labelledby="preview-dialog-title">
+      <header class="preview-dialog-header">
+        <div>
+          <p class="eyebrow"><span>PROJECT PREVIEW</span></p>
+          <h2 id="preview-dialog-title">Project</h2>
+        </div>
+        <form method="dialog">
+          <button class="preview-dialog-close" aria-label="Close project preview">Close <span aria-hidden="true">×</span></button>
+        </form>
+      </header>
+      <div class="preview-dialog-content" data-preview-content></div>
+    </dialog>
 
     <footer class="site-footer page-inner">
       <a class="wordmark" href="#top">Kunal Wagh<span>.</span></a>
@@ -116,4 +135,5 @@ import { achievements } from '../content/achievements';
 
 <script>
   import '../scripts/motion';
+  import '../scripts/interactions';
 </script>
