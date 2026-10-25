@@ -15,55 +15,54 @@ const hasVisual = ['your-next-binge', 'mem', 'airblued'].includes(project.slug);
     </div>
   </header>
 
-  {project.slug === 'your-next-binge' ? (
-    <figure class="project-visual project-visual-binge" aria-label="Portfolio preview for Your Next Binge">
-      <div class="binge-paper">
-        <div class="terminal-top"><span>Your Next Binge / discovery</span><span>INDIA · LIVE AVAILABILITY</span></div>
-        <div class="binge-preview-body">
-          <p class="binge-preview-kicker">TONIGHT?</p>
-          <h4>IN <span>INDIA.</span></h4>
-          <p>Find something you can actually watch.</p>
-          <div class="binge-preview-stats">
-            <div><strong>1,198</strong><span>India-scoped titles</span></div>
-            <div><strong>31–33 ms</strong><span>semantic search on VVD</span></div>
+  {hasVisual && (
+    <a class="project-preview-link" href={`/work/${project.slug}/`} aria-label={`Open ${project.title} case study`}>
+      {project.slug === 'your-next-binge' ? (
+        <figure class="project-visual project-visual-binge" aria-label="Portfolio preview for Your Next Binge">
+          <div class="binge-paper">
+            <div class="terminal-top"><span>Your Next Binge / discovery</span><span>INDIA · LIVE AVAILABILITY</span></div>
+            <div class="binge-preview-body">
+              <p class="binge-preview-kicker">TONIGHT?</p>
+              <h4>IN <span>INDIA.</span></h4>
+              <p>Find something you can actually watch.</p>
+              <div class="binge-preview-stats">
+                <div><strong>1,198</strong><span>India-scoped titles</span></div>
+                <div><strong>31–33 ms</strong><span>semantic search on VVD</span></div>
+              </div>
+              <div class="binge-preview-offers">
+                <span>STREAM</span><span>RENT</span><span>BUY</span>
+              </div>
+            </div>
           </div>
-          <div class="binge-preview-offers">
-            <span>STREAM</span><span>RENT</span><span>BUY</span>
-          </div>
-        </div>
-      </div>
-      <figcaption>Portfolio visual based on documented project facts.</figcaption>
-    </figure>
-  ) : project.slug === 'mem' ? (
-    <figure class="project-visual project-visual-mem">
-      <div class="terminal-top"><span>mem / sample search</span><span>GO · SQLITE FTS5</span></div>
-      <pre><code><span class="terminal-prompt">$</span> mem search "the PDF about Linux process scheduling"
+          <figcaption>Portfolio visual based on documented project facts.</figcaption>
+        </figure>
+      ) : project.slug === 'mem' ? (
+        <figure class="project-visual project-visual-mem">
+          <div class="terminal-top"><span>mem / sample search</span><span>GO · SQLITE FTS5</span></div>
+          <pre><code><span class="terminal-prompt">$</span> mem search "the PDF about Linux process scheduling"
 
 <span class="terminal-hit">[99%] l.pdf</span>
        Matches: linux, process
        ... Linux exposes this <span class="terminal-mark">&gt;&gt; process &lt;&lt;</span> behind splash screens ...</code></pre>
-      <figcaption>Search output · example documented in the project README</figcaption>
-    </figure>
-  ) : project.slug === 'airblued' ? (
-    <figure class="project-visual project-visual-airblued">
-      <p class="visual-label">SIMPLIFIED CONTROL PATH</p>
-      <div class="system-flow" role="group" aria-label="ratatui terminal interface to application event loop, bluer, system D-Bus, and bluetoothd">
-        <div><span>01 / INTERFACE</span><strong>ratatui</strong></div>
-        <b aria-hidden="true">→</b>
-        <div><span>02 / APP</span><strong>event loop</strong></div>
-        <b aria-hidden="true">→</b>
-        <div><span>03 / BLUETOOTH</span><strong>bluer · D-Bus</strong></div>
-        <b aria-hidden="true">→</b>
-        <div><span>04 / LINUX</span><strong>bluetoothd</strong></div>
-      </div>
-      <figcaption>Terminal UI to the Linux Bluetooth service · simplified from project documentation</figcaption>
-    </figure>
-  ) : null}
-
-  {hasVisual && (
-    <button class="project-preview-trigger" type="button" data-preview-open aria-label={`Expand ${project.title} preview`}>
-      Expand project preview <span aria-hidden="true">↗</span>
-    </button>
+          <figcaption>Search output · example documented in the project README</figcaption>
+        </figure>
+      ) : project.slug === 'airblued' ? (
+        <figure class="project-visual project-visual-airblued">
+          <p class="visual-label">SIMPLIFIED CONTROL PATH</p>
+          <div class="system-flow" role="group" aria-label="ratatui terminal interface to application event loop, bluer, system D-Bus, and bluetoothd">
+            <div><span>01 / INTERFACE</span><strong>ratatui</strong></div>
+            <b aria-hidden="true">→</b>
+            <div><span>02 / APP</span><strong>event loop</strong></div>
+            <b aria-hidden="true">→</b>
+            <div><span>03 / BLUETOOTH</span><strong>bluer · D-Bus</strong></div>
+            <b aria-hidden="true">→</b>
+            <div><span>04 / LINUX</span><strong>bluetoothd</strong></div>
+          </div>
+          <figcaption>Terminal UI to the Linux Bluetooth service · simplified from project documentation</figcaption>
+        </figure>
+      ) : null}
+      <span class="project-preview-cue" aria-hidden="true">CLICK TO VIEW CASE STUDY <span>↗</span></span>
+    </a>
   )}
 
   <div class="project-details">
